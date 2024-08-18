@@ -2,17 +2,27 @@
 <html>
   <head>
     <title>FormNest</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+    <header class="bg-white shadow">
+      <nav class="container mx-auto px-4 py-4">
+        <%= link_to 'TypeformMVP', root_path, class: 'text-xl font-bold' %>
+        <% if user_signed_in? %>
+          <%= link_to 'Dashboard', root_path, class: 'ml-4' %>
+          <%= link_to 'Forms', forms_path, class: 'ml-4' %>
+          <%= button_to 'Sign out', destroy_user_session_path, method: :delete, class: 'ml-4' %>
+        <% else %>
+          <%= link_to 'Sign in', new_user_session_path, class: 'ml-4' %>
+          <%= link_to 'Sign up', new_user_registration_path, class: 'ml-4' %>
+        <% end %>
+      </nav>
+    </header>
+    <main class="container mx-auto mt-8 px-4">
       <%= yield %>
     </main>
   </body>
